@@ -1,1 +1,3 @@
-# @curried
+# @foldr
+
+Nothing to see here yet..
