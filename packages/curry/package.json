@@ -1,0 +1,10 @@
+{
+  "name": "@curried/curry",
+  "version": "0.0.0",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JasonPollman/curried.git"
+  }
+}

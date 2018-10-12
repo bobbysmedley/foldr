@@ -1,0 +1,25 @@
+{
+  "env": {
+    "node": true,
+    "jest": true,
+    "browser": true
+  },
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "rules": {
+    "no-plusplus": 0,
+    "function-paren-newline": 0,
+    "valid-jsdoc": 1,
+    "require-jsdoc": [1,
+      {
+        "require": {
+          "FunctionDeclaration": true,
+          "ClassDeclaration": true,
+          "MethodDefinition": true,
+          "ArrowFunctionExpression": true,
+          "FunctionExpression": true
+        }
+      }
+    ]
+  }
+}

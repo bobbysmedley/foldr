@@ -1,0 +1,17 @@
+{
+  "presets": [
+    "stage-2",
+    [
+      "env",
+      {
+        "targets": {
+          "node": "6.9.0",
+          "browsers": [
+            "last 2 versions",
+            "ie 11"
+          ]
+        }
+      }
+    ]
+  ]
+}
