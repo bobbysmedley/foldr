@@ -1,3 +1,7 @@
+/* eslint-disable
+  no-bitwise,no-array-constructor, one-var-declaration-per-line, one-var, prefer-const
+*/
+
 /**
  * Shallow clones an array
  * @param {Array} arr - the array to clone
