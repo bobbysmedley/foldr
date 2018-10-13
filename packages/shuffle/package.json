@@ -1,5 +1,5 @@
 {
-  "name": "@curried/shuffle",
+  "name": "@foldr/shuffle",
   "version": "0.0.0",
   "license": "ISC",
   "main": "dist/index.js",
