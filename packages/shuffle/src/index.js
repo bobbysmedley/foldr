@@ -3,14 +3,17 @@
  * @param {array} arr - the array to be shuffled
  * @returns {array} - shuffled array
  */
-module.exports = function shuffle(arr) {
+function shuffle(arr) {
   if (!Array.isArray(arr) || !arr.length) return [];
-  let dupe = arr, top = arr.length, rand = top, curr = top;
+  let dupe = arr.slice(), top = arr.length, rand = top, curr = top;
   while (--top) {
     rand = (Math.random() * (top + 1)) | 0;
     curr = dupe[rand];
     dupe[rand] = dupe[top];
     dupe[top] = curr;
   }
+
   return dupe;
 }
+
+module.exports = shuffle;
