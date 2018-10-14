@@ -1,4 +1,5 @@
-const shuffle = require('./');
+const shuffle = require('./').default;
+const { implementShuffle, cloneArray } = require('./');
 
 describe('shuffle', () => {
   it('should shuffle an array', () => {
@@ -11,9 +12,25 @@ describe('shuffle', () => {
   });
 
   it('should return an empty array if param is not an array', () => {
+    const str = 'hello';
+
     expect(shuffle(null)).toEqual([]);
     expect(shuffle()).toEqual([]);
-    expect(shuffle('hello')).toEqual([]);
+    expect(shuffle(str) !== str).toBe(true);
     expect(shuffle({})).toEqual([]);
+  });
+
+  it('cloneArray should shallow clone and return a new array', () => {
+    const og = [1, 2, 3];
+
+    // toEqual since `toBe` will due to shallow copy
+    expect(cloneArray(og)).toEqual([1, 2, 3]);
+  });
+
+  it('implementShuffle should shuffle an array', () => {
+    const og = [1, 2, 3];
+    const shuffled = implementShuffle(og);
+
+    expect(JSON.stringify(og) !== JSON.stringify(shuffled)).toBe(true);
   });
 });

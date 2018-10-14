@@ -7,7 +7,7 @@
  * @param {Array} arr - the array to clone
  * @returns {Array} - the newly cloned array
  */
-function cloneArray(arr) {
+export function cloneArray(arr) {
   let clone = new Array(arr.length), ind = arr.length;
   while (ind--) {
     clone[ind] = arr[ind];
@@ -20,7 +20,7 @@ function cloneArray(arr) {
  * @param {Array} arr - the array to be shifted
  * @returns {Array} - the newly shifted array
  */
-function implementShuffle(arr) {
+export function implementShuffle(arr) {
   let dupe = cloneArray(arr), top = arr.length, rand = top, curr = top;
   while (--top) {
     rand = (Math.random() * (top + 1)) | 0;
@@ -42,4 +42,4 @@ function shuffle(arr) {
   return (size && size > 1) ? new Array(1).fill(arr[0]) : new Array();
 }
 
-module.exports = shuffle;
+export default shuffle;
