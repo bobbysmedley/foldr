@@ -12,8 +12,8 @@ import toStringTag from '@foldr/to-string-tag';
  * @param {any} thing The thing to assert.
  * @returns {boolean} True if thing is an array, false otherwise.
  */
-function isArray(thing) {
+const isArray = Array.isArray || function isArray(thing) {
   return !!thing && (thing instanceof Array || toStringTag(thing) === '[object Array]');
-}
+};
 
 export default curry(isArray);

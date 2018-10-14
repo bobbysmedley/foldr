@@ -11,23 +11,62 @@ import toStringTag from '@foldr/to-string-tag';
 /* eslint-disable prefer-rest-params */
 
 /**
+ * Used to iterate over Array|String instances.
+ * @param {function} iteratee The iteratee to invoke for each property of `this` Object.
+ * @returns {undefined}
+ */
+function LengthyIterator(collection, iteratee) {
+  const size = collection.length;
+
+  for (let i = 0; i < size; i++) {
+    iteratee(collection[i], i, collection);
+  }
+}
+
+/**
+ * Used to iterate over Array|String instances.
+ * @param {function} iteratee The iteratee to invoke for each property of `this` Object.
+ * @returns {undefined}
+ */
+function LengthyBreakableIterator(collection, iteratee) {
+  const size = collection.length;
+
+  for (let i = 0; i < size; i++) {
+    if (iteratee(collection[i], i, collection)) break;
+  }
+}
+
+/**
  * Used to iterate over Object instances.
  * If the object has it's own `length` property, it will be iterated on using
  * Array.prototype.forEach.
  * @param {function} iteratee The iteratee to invoke for each property of `this` Object.
  * @returns {undefined}
  */
-function ObjectIterator(iteratee) {
-  if (this.length || this.length === 0) {
-    Array.prototype.forEach.call(this, iteratee);
-    return;
+function ObjectIterator(collection, iteratee) {
+  if (collection.length || collection.length === 0) {
+    return LengthyIterator(collection, iteratee);
   }
 
-  const keys = Object.keys(this);
+  const keys = Object.keys(collection);
   const size = keys.length;
 
   for (let i = 0; i < size; i++) {
-    iteratee(this[keys[i]], keys[i], this);
+    iteratee(collection[keys[i]], keys[i], collection);
+  }
+}
+
+/**
+ * Used to iterate over Object instances (and can be broken).
+ * @param {function} iteratee The iteratee to invoke for each property of `this` Object.
+ * @returns {undefined}
+ */
+function ObjectBreakableIterator(collection, iteratee) {
+  const keys = Object.keys(collection);
+  const size = keys.length;
+
+  for (let i = 0; i < size; i++) {
+    if (iteratee(collection[keys[i]], keys[i], collection)) break;
   }
 }
 
@@ -38,23 +77,20 @@ function ObjectIterator(iteratee) {
  * @param {function} iteratee The iteratee to invoke for each property of `this` Set.
  * @returns {undefined}
  */
-function SetIterator(iteratee) {
+function SetIterator(collection, iteratee) {
   let i = 0;
-  this.forEach(value => iteratee(value, i++, this));
+  collection.forEach(value => iteratee(value, i++, collection));
 }
 
 /**
- * Used to iterate over Object instances (and can be broken).
- * @param {function} iteratee The iteratee to invoke for each property of `this` Object.
+ * Used to iterate over Set instances.
+ * Since Set#forEach passes the value for both the key and the value,
+ * we're writing and override that will pass a proper key value.
+ * @param {function} iteratee The iteratee to invoke for each property of `this` Set.
  * @returns {undefined}
  */
-function ObjectBreakableIterator(iteratee) {
-  const keys = Object.keys(this);
-  const size = keys.length;
-
-  for (let i = 0; i < size; i++) {
-    if (iteratee(this[keys[i]], keys[i], this)) break;
-  }
+function MapIterator(collection, iteratee) {
+  collection.forEach((value, key) => iteratee(value, key, collection));
 }
 
 /**
@@ -62,23 +98,23 @@ function ObjectBreakableIterator(iteratee) {
  * @param {function} iteratee The iteratee to invoke for each property of `this` Map.
  * @returns {undefined}
  */
-function MapBreakableIterator(iteratee) {
+function MapBreakableIterator(collection, iteratee) {
   // IE 11 doesn't have support for Map#entries
   // AFAIK there's no way to "break" in IE.
-  if (typeof this.entries !== 'function') {
+  if (typeof collection.entries !== 'function') {
     let broken = false;
 
-    this.forEach((value, key) => {
+    collection.forEach((value, key) => {
       if (broken) return;
-      if (iteratee(value, key, this)) broken = true;
+      if (iteratee(value, key, collection)) broken = true;
     });
   }
 
-  const iterator = this.values();
+  const iterator = collection.values();
   let entry = iterator.next();
 
   while (!entry.done) {
-    if (iteratee(entry.value[0], entry.value[1], this)) break;
+    if (iteratee(entry.value[0], entry.value[1], collection)) break;
     entry = iterator.next();
   }
 }
@@ -88,25 +124,25 @@ function MapBreakableIterator(iteratee) {
  * @param {function} iteratee The iteratee to invoke for each property of `this` Map.
  * @returns {undefined}
  */
-function SetBreakableIterator(iteratee) {
+function SetBreakableIterator(collection, iteratee) {
   let i = 0;
 
   // IE 11 doesn't have support for Set#entries
   // AFAIK there's no way to "break" in IE.
-  if (typeof this.entries !== 'function') {
+  if (typeof collection.entries !== 'function') {
     let broken = false;
 
-    this.forEach((value) => {
+    collection.forEach((value) => {
       if (broken) return;
-      if (iteratee(value, i++, this)) broken = true;
+      if (iteratee(value, i++, collection)) broken = true;
     });
   }
 
-  const iterator = this.values();
+  const iterator = collection.values();
   let entry = iterator.next();
 
   while (!entry.done) {
-    if (iteratee(entry.value[0], i++, this)) break;
+    if (iteratee(entry.value[0], i++, collection)) break;
     entry = iterator.next();
   }
 }
@@ -117,11 +153,11 @@ function SetBreakableIterator(iteratee) {
  */
 const ITERATOR_MAPPING = {
   '[object Set]': SetIterator,
-  '[object Map]': Map.prototype.forEach,
-  '[object Array]': Array.prototype.forEach,
-  '[object String]': Array.prototype.forEach,
+  '[object Map]': MapIterator,
+  '[object Array]': LengthyIterator,
+  '[object String]': LengthyIterator,
   '[object Object]': ObjectIterator,
-  '[object Arguments]': Array.prototype.forEach,
+  '[object Arguments]': LengthyIterator,
 };
 
 /**
@@ -131,21 +167,21 @@ const ITERATOR_MAPPING = {
 const BREAKABLE_ITERATOR_MAPPING = {
   '[object Set]': SetBreakableIterator,
   '[object Map]': MapBreakableIterator,
-  '[object Array]': Array.prototype.some,
-  '[object String]': Array.prototype.some,
+  '[object Array]': LengthyBreakableIterator,
+  '[object String]': LengthyBreakableIterator,
   '[object Object]': ObjectBreakableIterator,
-  '[object Arguments]': Array.prototype.some,
+  '[object Arguments]': LengthyBreakableIterator,
 };
 
 /**
  * Iterates over `thing` and invokes `iteratee` for each item in the collection.
- * @param {function} iteratee The iteratee function to invoke for each item in the collection.
  * @param {Array|Arguments|Object|Set|Map} thing The "thing" to iterate over.
  * @param {boolean=} breakable True for a "breakable" iterator.
+ * @param {function} iteratee The iteratee function to invoke for each item in the collection.
  * @returns {undefined}
  * @export
  */
-export default function iterate(iteratee, thing, breakable = false) {
+export default function iterate(thing, breakable, iteratee) {
   const iterators = breakable ? BREAKABLE_ITERATOR_MAPPING : ITERATOR_MAPPING;
-  return ((thing && iterators[toStringTag(thing)]) || noop).apply(thing, arguments);
+  return ((thing && iterators[toStringTag(thing)]) || noop)(thing, iteratee);
 }

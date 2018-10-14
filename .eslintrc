@@ -24,9 +24,13 @@
   },
   "overrides": [
     {
-      "files": [ "**/*.test.js"],
+      "files": [
+        "**/*.test.js",
+        "**/bench.js"
+      ],
       "rules": {
-        "require-jsdoc": 0
+        "require-jsdoc": 0,
+        "import/no-extraneous-dependencies": 0,
       }
     }
   ]

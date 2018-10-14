@@ -5,10 +5,13 @@
  * @file
  */
 
-/* eslint-disable prefer-rest-params, require-jsdoc */
+/* eslint-disable prefer-rest-params */
 
 import curry from '@foldr/curry';
+import isArray from '@foldr/is-array';
 import iterate from '@foldr/internal-iterator';
+
+const ArrayEvery = Array.prototype.every;
 
 /**
  * A curried "every" function that calls `iteratee` for each item in the given collection.
@@ -26,15 +29,16 @@ import iterate from '@foldr/internal-iterator';
  * hasFoo({ x: 'foo' });          // true
  */
 function every(iteratee, collection) {
+  if (isArray(collection)) return ArrayEvery.call(collection, iteratee);
+
   let unmatched = false;
 
-  function iterateeWrap() {
+  iterate(collection, true, function iterateeWrap() {
     if (iteratee.apply(collection, arguments)) return false;
     unmatched = true;
     return true;
-  }
+  });
 
-  iterate(iterateeWrap, collection, true);
   return unmatched;
 }
 

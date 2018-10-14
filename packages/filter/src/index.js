@@ -8,7 +8,12 @@
 /* eslint-disable no-array-constructor, prefer-rest-params */
 
 import curry from '@foldr/curry';
+import isArray from '@foldr/is-array';
 import iterate from '@foldr/internal-iterator';
+
+/* eslint-disable prefer-arrow-callback */
+
+const ArrayFilter = Array.prototype.filter;
 
 /**
  * A curried filtering function that is similar to Array#filter, except that
@@ -23,12 +28,14 @@ import iterate from '@foldr/internal-iterator';
  * const numbers = numbersOf(['a', 1, 2, 3, 'b']);  // [1, 2, 3];
  */
 function filter(filterFunction, collection) {
-  let i = 0;
+  if (isArray(collection)) return ArrayFilter.call(collection, filterFunction);
 
+  let i = 0;
   const filtered = new Array();
-  iterate(function iterateeWrap(value) {
+
+  iterate(collection, false, function iterateeWrap(value) {
     if (filterFunction.apply(collection, arguments)) filtered[i++] = value;
-  }, collection);
+  });
 
   return filtered;
 }

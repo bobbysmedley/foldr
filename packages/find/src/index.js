@@ -5,10 +5,13 @@
  * @file
  */
 
-/* eslint-disable prefer-rest-params, require-jsdoc */
+/* eslint-disable prefer-rest-params, prefer-arrow-callback */
 
 import curry from '@foldr/curry';
+import isArray from '@foldr/is-array';
 import iterate from '@foldr/internal-iterator';
+
+const ArrayFind = Array.prototype.find;
 
 /**
  * A curried "find" function that calls `iteratee` for each item in the given collection.
@@ -25,15 +28,16 @@ import iterate from '@foldr/internal-iterator';
  * const john = getJohn([{ name: 'Jane' }, { name: 'John' }]); // => { name: 'John' }
  */
 function find(iteratee, collection) {
+  if (ArrayFind && isArray(collection)) return ArrayFind.call(collection, iteratee);
+
   let item;
 
-  function iterateeWrap(value) {
+  iterate(collection, true, function iterateeWrap(value) {
     if (!iteratee.apply(collection, arguments)) return false;
     item = value;
     return true;
-  }
+  });
 
-  iterate(iterateeWrap, collection, true);
   return item;
 }
 

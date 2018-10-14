@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+DIRNAME="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
+PACKAGES_DIR="$DIRNAME/../packages"
+
+node $PACKAGES_DIR/$1/bench.js

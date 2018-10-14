@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@foldr/curry": "^0.0.0",
+    "@foldr/is-array": "^0.0.0",
     "@foldr/internal-iterator": "^0.0.0"
   }
 }

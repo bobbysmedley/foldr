@@ -8,7 +8,10 @@
 /* eslint-disable no-array-constructor, prefer-rest-params */
 
 import curry from '@foldr/curry';
+import isArray from '@foldr/is-array';
 import iterate from '@foldr/internal-iterator';
+
+const ArrayMap = Array.prototype.map;
 
 /**
  * A curried mapping function that calls `iteratee` for each item in the given collection.
@@ -25,12 +28,14 @@ import iterate from '@foldr/internal-iterator';
  * double(new Set([1, 2]))                // => [2, 4];
  */
 function map(iteratee, collection) {
+  if (isArray(collection)) return ArrayMap.call(collection, iteratee);
+
   let i = 0;
 
   const results = new Array();
-  iterate(function iterateeWrap() {
+  iterate(collection, false, function iterateeWrap() {
     results[i++] = iteratee.apply(collection, arguments);
-  }, collection);
+  });
 
   return results;
 }

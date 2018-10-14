@@ -14,9 +14,9 @@ import curry from '@foldr/curry';
  * @returns {boolean} True if `x` is NaN, false otherwise.
  * @export
  */
-function isNaN(x) {
+const isNaN = Number.isNaN || function isNaN(x) {
   // eslint-disable-next-line no-self-compare
   return x !== x;
-}
+};
 
 export default curry(isNaN);

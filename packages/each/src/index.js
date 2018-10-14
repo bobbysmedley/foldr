@@ -8,7 +8,10 @@
 /* eslint-disable prefer-rest-params */
 
 import curry from '@foldr/curry';
+import isArray from '@foldr/is-array';
 import iterate from '@foldr/internal-iterator';
+
+const ArrayEach = Array.prototype.forEach;
 
 /**
  * A curried "for each" function that calls `iteratee` for each item in the given collection.
@@ -25,9 +28,14 @@ import iterate from '@foldr/internal-iterator';
  * logEach(new Set([1, 2]))                // => undefined (Prints 2, then 4)
  */
 function each(iteratee, collection) {
-  iterate(function iterateeWrap() {
+  if (isArray(collection)) {
+    ArrayEach.call(collection, iteratee);
+    return;
+  }
+
+  iterate(collection, false, function iterateeWrap() {
     iteratee.apply(collection, arguments);
-  }, collection);
+  });
 }
 
 export default curry(each);
