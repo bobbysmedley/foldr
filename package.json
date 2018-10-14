@@ -3,6 +3,7 @@
   "scripts": {
     "build": "./scripts/build",
     "clean": "rimraf packages/**/dist",
+    "link": "lerna link",
     "lint": "npx eslint packages/**/src",
     "test": "NODE_ENV=test jest",
     "test:cover": "NODE_ENV=test jest --coverage",
@@ -15,7 +16,6 @@
     "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
-    "chai": "^4.2.0",
     "eslint": "^5.6.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
@@ -33,7 +33,7 @@
       "text"
     ],
     "collectCoverageFrom": [
-      "src/**"
+      "packages/**/src/**"
     ],
     "coverageThreshold": {
       "global": {

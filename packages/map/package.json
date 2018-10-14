@@ -1,5 +1,5 @@
 {
-  "name": "@foldr/curry",
+  "name": "@foldr/map",
   "version": "0.0.0",
   "license": "ISC",
   "main": "dist/index.js",
@@ -8,6 +8,6 @@
     "url": "https://github.com/JasonPollman/foldr.git"
   },
   "dependencies": {
-    "@foldr/internal-symbol": "^0.0.0"
+    "@foldr/curry-proto": "^0.0.0"
   }
 }

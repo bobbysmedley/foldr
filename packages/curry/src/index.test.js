@@ -4,11 +4,10 @@
  * @file
  */
 
-import { expect } from 'chai';
 import curry from '.';
 
 describe('curry', () => {
   it('Should be a function', () => {
-    expect(curry).to.be.a('function');
+    expect(typeof curry).toBe('function');
   });
 });

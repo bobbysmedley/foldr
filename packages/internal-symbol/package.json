@@ -1,13 +1,10 @@
 {
-  "name": "@foldr/curry",
+  "name": "@foldr/internal-symbol",
   "version": "0.0.0",
   "license": "ISC",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/JasonPollman/foldr.git"
-  },
-  "dependencies": {
-    "@foldr/internal-symbol": "^0.0.0"
   }
 }
