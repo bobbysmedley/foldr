@@ -25,7 +25,7 @@ describe('shuffle', () => {
     const cloned = cloneArray(og);
 
     expect(cloned.length).toBe(og.length);
-    // toEqual since `toBe` will due to shallow copy
+    // toEqual since `toBe` will fail due to shallow copy
     expect(cloned).toEqual([1, 2, 3]);
   });
 
