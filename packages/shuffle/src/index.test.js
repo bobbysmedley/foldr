@@ -22,9 +22,11 @@ describe('shuffle', () => {
 
   it('cloneArray should shallow clone and return a new array', () => {
     const og = [1, 2, 3];
+    const cloned = cloneArray(og);
 
+    expect(cloned.length).toBe(og.length);
     // toEqual since `toBe` will due to shallow copy
-    expect(cloneArray(og)).toEqual([1, 2, 3]);
+    expect(cloned).toEqual([1, 2, 3]);
   });
 
   it('implementShuffle should shuffle an array', () => {

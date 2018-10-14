@@ -1,5 +1,5 @@
 /* eslint-disable
-  no-bitwise,no-array-constructor, one-var-declaration-per-line, one-var, prefer-const
+  no-bitwise, no-array-constructor, one-var-declaration-per-line, one-var, prefer-const
 */
 
 /**
