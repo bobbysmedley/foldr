@@ -1,0 +1,15 @@
+{
+  "name": "@foldr/is-finite",
+  "version": "0.0.0",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JasonPollman/foldr.git"
+  },
+  "dependencies": {
+    "@foldr/curry": "^0.0.0",
+    "@foldr/is-number": "^0.0.0",
+    "@foldr/internal-env": "^0.0.0"
+  }
+}
