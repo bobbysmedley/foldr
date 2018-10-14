@@ -1,5 +1,5 @@
 {
-  "name": "@foldr/map",
+  "name": "@foldr/find",
   "version": "0.0.0",
   "license": "ISC",
   "main": "dist/index.js",

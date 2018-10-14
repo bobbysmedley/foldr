@@ -42,4 +42,46 @@ describe('map', () => {
   it('Should should work on strings', () => {
     expect(map(x => x * 2)('123')).toEqual([2, 4, 6]);
   });
+
+  it('Should should work on Map instances', () => {
+    const instance = new Map([['a', 1], ['b', 2], ['c', 3]]);
+    const keys = ['a', 'b', 'c'];
+
+    const iteratee = (val, k, m) => {
+      expect(m).toBe(instance);
+      expect(k).toBe(keys.shift());
+      expect(typeof val).toBe('number');
+      return val * 2;
+    };
+
+    expect(map(iteratee)(instance)).toEqual([2, 4, 6]);
+  });
+
+  it('Should should work on Set instances', () => {
+    const instance = new Set([1, 2, 3]);
+    const keys = [0, 1, 2];
+
+    const iteratee = (val, k, s) => {
+      expect(s).toBe(instance);
+      expect(k).toBe(keys.shift());
+      expect(typeof val).toBe('number');
+      return val * 2;
+    };
+
+    expect(map(iteratee)(instance)).toEqual([2, 4, 6]);
+  });
+
+  it('Should should work on plain objects', () => {
+    const instance = { a: 1, b: 2, c: 3 };
+    const keys = ['a', 'b', 'c'];
+
+    const iteratee = (val, k, o) => {
+      expect(o).toBe(instance);
+      expect(k).toBe(keys.shift());
+      expect(typeof val).toBe('number');
+      return val * 2;
+    };
+
+    expect(map(iteratee)(instance)).toEqual([2, 4, 6]);
+  });
 });

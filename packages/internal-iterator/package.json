@@ -1,5 +1,5 @@
 {
-  "name": "@foldr/map",
+  "name": "@foldr/internal-iterator",
   "version": "0.0.0",
   "license": "ISC",
   "main": "dist/index.js",
@@ -8,7 +8,7 @@
     "url": "https://github.com/JasonPollman/foldr.git"
   },
   "dependencies": {
-    "@foldr/curry": "^0.0.0",
-    "@foldr/internal-iterator": "^0.0.0"
+    "@foldr/noop": "^0.0.0",
+    "@foldr/to-string-tag": "^0.0.0"
   }
 }

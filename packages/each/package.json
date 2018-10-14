@@ -1,5 +1,5 @@
 {
-  "name": "@foldr/map",
+  "name": "@foldr/each",
   "version": "0.0.0",
   "license": "ISC",
   "main": "dist/index.js",
@@ -8,6 +8,7 @@
     "url": "https://github.com/JasonPollman/foldr.git"
   },
   "dependencies": {
-    "@foldr/curry-proto": "^0.0.0"
+    "@foldr/curry": "^0.0.0",
+    "@foldr/internal-iterator": "^0.0.0"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@foldr/map",
+  "name": "@foldr/includes",
   "version": "0.0.0",
   "license": "ISC",
   "main": "dist/index.js",
@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@foldr/curry": "^0.0.0",
-    "@foldr/internal-iterator": "^0.0.0"
+    "@foldr/isArray": "^0.0.0",
+    "@foldr/some": "^0.0.0"
   }
 }

@@ -1,14 +1,10 @@
 {
-  "name": "@foldr/map",
+  "name": "@foldr/identity",
   "version": "0.0.0",
   "license": "ISC",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/JasonPollman/foldr.git"
-  },
-  "dependencies": {
-    "@foldr/curry": "^0.0.0",
-    "@foldr/internal-iterator": "^0.0.0"
   }
 }

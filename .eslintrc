@@ -21,5 +21,13 @@
         }
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": [ "**/*.test.js"],
+      "rules": {
+        "require-jsdoc": 0
+      }
+    }
+  ]
 }

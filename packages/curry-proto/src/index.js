@@ -8,6 +8,8 @@
 
 import curry from '@foldr/curry';
 
+const identity = x => x;
+
 /**
  * Used to curry prototype methods.
  * This will wrap the given prototype method to use Function.apply,
@@ -54,6 +56,7 @@ export default function prototypeCurry(fn, {
   arity = fn.length + 1,
   guard = false,
   capped = true,
+  convert = identity,
   thisArgPosition = arity - 1,
 } = {}) {
   const guarded = typeof guard === 'function';
@@ -67,8 +70,8 @@ export default function prototypeCurry(fn, {
     }
 
     return guarded
-      ? fn.apply(context === undefined || context === null ? guard() : context, args)
-      : fn.apply(context, args);
+      ? fn.apply(context === undefined || context === null ? guard() : convert(context), args)
+      : fn.apply(convert(context), args);
   }
 
   // Must do this for native functions for the modified
