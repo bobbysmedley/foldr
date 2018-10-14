@@ -1,24 +1,14 @@
 /**
- * Head function which returns the first index of an array with validaiton
- * @param {array} arr - the array to be shuffled
- * @returns {array} - shuffled array
+ * Head function, which returns the first index of a proven array
+ * @param {array} arr - the array that will provide the first index
+ * @returns array[0] - the value at the first index of an array
  */
 
 
-function head(arr) {
-  if (Array.isArray(arr)){
-    return arr[0];
-  }
-  return undefined;
-  // return (arr && arr.length) ? arr[0] : undefined;
+function head(array) {
+  if (array && array.length) {
+    return array[0];
+  } return undefined;
 }
 
-module.export = head;
-
-// const now = Date.now();
-//
-// for (let i = 0; i < 10000; i++) {
-//   head(Array(i));
-// }
-//
-// console.log(`Finished computation in ${Date.now() - now}ms`);
+module.exports = head;
