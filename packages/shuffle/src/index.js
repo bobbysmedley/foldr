@@ -5,6 +5,7 @@
 /**
  * Shallow clones an array
  * @param {Array} arr - the array to clone
+ * @returns {Array} - the newly cloned array
  */
 function cloneArray(arr) {
   let clone = new Array(arr.length), ind = arr.length;
@@ -33,7 +34,7 @@ function implementShuffle(arr) {
 /**
  * Shuffle function which implements the "Fisher-Yates" shuffle algorithm
  * @param {array} arr - the array to be shuffled
- * @returns {array} - shuffled array
+ * @returns {array} - a shuffled array
  */
 function shuffle(arr) {
   const size = arr && arr.length;
