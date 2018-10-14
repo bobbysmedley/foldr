@@ -12,6 +12,7 @@ import toStringTag from '@foldr/to-string-tag';
 
 /**
  * Used to iterate over Array|String instances.
+ * @param {Array|String|Arguments} collection The collection to iterate over.
  * @param {function} iteratee The iteratee to invoke for each property of `this` Object.
  * @returns {undefined}
  */
@@ -25,6 +26,7 @@ function LengthyIterator(collection, iteratee) {
 
 /**
  * Used to iterate over Array|String instances.
+ * @param {Array|String|Arguments} collection The collection to iterate over.
  * @param {function} iteratee The iteratee to invoke for each property of `this` Object.
  * @returns {undefined}
  */
@@ -38,8 +40,8 @@ function LengthyBreakableIterator(collection, iteratee) {
 
 /**
  * Used to iterate over Object instances.
- * If the object has it's own `length` property, it will be iterated on using
- * Array.prototype.forEach.
+ * If the object has it's own `length` property, it will be iterated on using `LengthyIterator`.
+ * @param {Object} collection The collection to iterate over.
  * @param {function} iteratee The iteratee to invoke for each property of `this` Object.
  * @returns {undefined}
  */
@@ -58,6 +60,7 @@ function ObjectIterator(collection, iteratee) {
 
 /**
  * Used to iterate over Object instances (and can be broken).
+ * @param {Object} collection The collection to iterate over.
  * @param {function} iteratee The iteratee to invoke for each property of `this` Object.
  * @returns {undefined}
  */
@@ -74,6 +77,7 @@ function ObjectBreakableIterator(collection, iteratee) {
  * Used to iterate over Set instances.
  * Since Set#forEach passes the value for both the key and the value,
  * we're writing and override that will pass a proper key value.
+ * @param {Set} collection The collection to iterate over.
  * @param {function} iteratee The iteratee to invoke for each property of `this` Set.
  * @returns {undefined}
  */
@@ -86,6 +90,7 @@ function SetIterator(collection, iteratee) {
  * Used to iterate over Set instances.
  * Since Set#forEach passes the value for both the key and the value,
  * we're writing and override that will pass a proper key value.
+ * @param {Map} collection The collection to iterate over.
  * @param {function} iteratee The iteratee to invoke for each property of `this` Set.
  * @returns {undefined}
  */
@@ -95,6 +100,7 @@ function MapIterator(collection, iteratee) {
 
 /**
  * Used to iterate over Map instances (and can be broken).
+ * @param {Map} collection The collection to iterate over.
  * @param {function} iteratee The iteratee to invoke for each property of `this` Map.
  * @returns {undefined}
  */
@@ -110,17 +116,18 @@ function MapBreakableIterator(collection, iteratee) {
     });
   }
 
-  const iterator = collection.values();
-  let entry = iterator.next();
+  const iterator = collection.entries();
+  let current = iterator.next();
 
-  while (!entry.done) {
-    if (iteratee(entry.value[0], entry.value[1], collection)) break;
-    entry = iterator.next();
+  while (!current.done) {
+    if (iteratee(current.value[0], current.value[1], collection)) break;
+    current = iterator.next();
   }
 }
 
 /**
  * Used to iterate over Map instances (and can be broken).
+ * @param {Set} collection The collection to iterate over.
  * @param {function} iteratee The iteratee to invoke for each property of `this` Map.
  * @returns {undefined}
  */
@@ -138,12 +145,12 @@ function SetBreakableIterator(collection, iteratee) {
     });
   }
 
-  const iterator = collection.values();
-  let entry = iterator.next();
+  const iterator = collection.entries();
+  let current = iterator.next();
 
-  while (!entry.done) {
-    if (iteratee(entry.value[0], i++, collection)) break;
-    entry = iterator.next();
+  while (!current.done) {
+    if (iteratee(current.value[0], i++, collection)) break;
+    current = iterator.next();
   }
 }
 
