@@ -6,10 +6,8 @@
 
 function drop(array, dropNum) {
   if (!array || !array.length || typeof array === 'string') return undefined;
-  const copy = [];
+  const copy = array.slice(0);
   let count = 0;
-  let i = array.length;
-  while(i--) copy[i] = array[i];
     while (count < dropNum && count < copy.length){
       array.shift();
       count++;
