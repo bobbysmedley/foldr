@@ -1,0 +1,22 @@
+/**
+ * Tests for the `drop` function.
+ * @since 10/15/18
+ * @file
+ */
+
+const drop = require('./');
+
+describe('drop', () => {
+  it('should drop the n number of elements from the beginning of an array', () => {
+    expect(drop([1, { foo: 'bar' }, 'hello'], 0)).toEqual([1, { foo: 'bar' }, 'hello']);
+    expect(drop([1, { foo: 'bar' }, 'hello'], 2)).toEqual(['hello']);
+    expect(drop([1, { foo: 'bar' }, 'hello'], 5000)).toEqual([]);
+    expect(drop([1, { foo: 'bar' }, 'hello'], null)).toEqual([1, { foo: 'bar' }, 'hello']);
+  });
+
+  it('should return undefined if param is not an array', () => {
+    expect(drop('hello', null)).toEqual(undefined);
+    expect(drop(null, 2)).toEqual(undefined);
+    expect(drop(77, 3)).toEqual(undefined);
+  });
+});
