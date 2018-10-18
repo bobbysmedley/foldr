@@ -2,7 +2,7 @@
  * Drops the n number of elements from the beginning of an array
  * @param {Array} array - the array to be dropped,
  * @param {int} dropNum -  amount of elements to drop
- * @returns {Array} a newly dropped array
+ * @returns {Array} newArr - a newly dropped array
  */
 
 function drop(array, dropNum) {
