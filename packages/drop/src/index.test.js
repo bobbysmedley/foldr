@@ -16,8 +16,8 @@ describe('drop', () => {
 
   });
 
-  it('should return undefined if param is not an array', () => {
-    expect(drop(null, 2)).toEqual(undefined);
-    expect(drop(77, 3)).toEqual(undefined);
+  it('should return empty array if param is not an array', () => {
+    expect(drop(null, 2)).toEqual(new Array());
+    expect(drop(77, 3)).toEqual(new Array());
   });
 });
