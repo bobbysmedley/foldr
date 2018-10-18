@@ -5,18 +5,26 @@
  */
 
 function drop(array, dropNum) {
-  if (!array || !array.length || typeof array === 'string') return undefined;
-  const copy = array.slice(0);
-  let count = 0;
-    while (count < dropNum && count < copy.length){
-      array.shift();
-      count++;
-    }
-    return array;
+  if (!array || !array.length) return undefined;
+  // const copy = new Array(array.length - dropNum);
+  // let count = 0;
+  let newArr = [];
+
+    // while (count < dropNum && count < copy.length){
+    //   newArr[count] = array[c]
+    //   count++;
+    // }
+  let i = 0;
+  while ((i + dropNum) < array.length){
+    newArr[i] = array[dropNum + i];
+    i++
+  }
+
+    return newArr;
 }
 
 module.exports = drop;
-console.log(drop([1, { foo: 'bar' }, 'hello'], 5000));
+console.log(drop([1, { foo: 'bar' }, 'hello'], 1));
 
 var iterations = 1000000;
 console.time('Function #1');
